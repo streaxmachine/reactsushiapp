@@ -1,10 +1,7 @@
-import { useFrame } from "@react-three/fiber";
-import { Suspense, useRef, useState } from "react";
+import { Suspense } from "react";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { PresentationControls } from "@react-three/drei";
-import { DirectionalLight } from "three";
 
 export function Sushi2(props) {
   const { nodes, materials } = useGLTF("/sushi2.glb");
