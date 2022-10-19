@@ -19,6 +19,7 @@ const BlockFilter = ({ postQuery, setSearchParams }) => {
         className="search-input"
         type="search"
         name="search"
+        placeholder="Search sushi..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />

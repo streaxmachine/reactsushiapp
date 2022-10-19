@@ -67,8 +67,9 @@ const AddSushi = ({ setCube }) => {
     <>
       <form action="">
         <div className="form-div">
-          choose type
+          Choose type
           <select
+            style={{ marginBottom: "10px", marginTop: "10px" }}
             className="select"
             value={type}
             name="type"
@@ -78,8 +79,15 @@ const AddSushi = ({ setCube }) => {
             <option value="Uramaki">Uramaki</option>
             <option value="Gunkan maki">Gunkan maki</option>
           </select>
-          <label htmlFor="name">Enter your name: </label>
+          <label htmlFor="name">Enter sushi name: </label>
           <input
+            style={{
+              marginBottom: "20px",
+              border: "solid 1px white",
+              borderRadius: "5px",
+              height: "20px",
+              marginTop: "10px",
+            }}
             type="text"
             name="name"
             value={name || " "}
@@ -90,17 +98,20 @@ const AddSushi = ({ setCube }) => {
           <textarea
             name="recipe"
             cols="30"
+            className="recipe-textarea"
             rows="10"
             value={recipe || " "}
             onChange={handleChange}
           ></textarea>
           <input
             type="submit"
+            className="button-32"
+            style={{ backgroundColor: "rgb(25, 189, 25)" }}
             value={!editMode ? "Add" : "Edit"}
             onClick={handleSubmit}
           />
           <Link to={"/"}>
-            <button> Cancel </button>
+            <button className="button-32"> Cancel </button>
           </Link>
         </div>
       </form>

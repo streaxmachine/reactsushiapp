@@ -1,10 +1,22 @@
 {
   "sushi": [
     {
-      "type": "Gunkan maki",
-      "name": " fasfsafasfsafsa",
-      "recipe": " fsafsafsafsa",
-      "id": 7
+      "type": "Nigiri",
+      "name": " fafsa",
+      "recipe": " fsafsafsa",
+      "id": 1
+    },
+    {
+      "type": "Nigiri",
+      "name": " fsafsa",
+      "recipe": " fsafsa",
+      "id": 2
+    },
+    {
+      "type": "Nigiri",
+      "name": "fsafasfsa ",
+      "recipe": " fasfasfasfasfa",
+      "id": 3
     }
   ]
 }
