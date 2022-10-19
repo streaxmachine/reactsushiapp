@@ -17,6 +17,10 @@ const AddSushi = ({ setCube }) => {
   const { id } = useParams();
   const { sushi } = useSelector((s) => s.sushiData);
 
+  const [nameError, setNameError] = useState("поле не может быть пустым");
+  const [recipeError, setRecipeError] = useState("поле не может быть пустым");
+  const [formValid, setFormValid] = useState(false);
+
   const navigate = useNavigate();
   const goBack = () => navigate("/");
   const dispatch = useDispatch();
@@ -24,6 +28,8 @@ const AddSushi = ({ setCube }) => {
   useEffect(() => {
     if (id) {
       setEditMode(true);
+      setRecipeError("");
+      setNameError("");
       const singleSushi = sushi.find((item) => item.id === Number(id));
       setValue({ ...singleSushi });
     } else {
@@ -31,6 +37,24 @@ const AddSushi = ({ setCube }) => {
       setValue({ ...initialState });
     }
   }, [id, sushi]);
+
+  useEffect(() => {
+    console.log(nameError, recipeError);
+
+    if (nameError || recipeError) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
+    }
+
+    if (editMode) {
+      if (nameError || recipeError) {
+        setFormValid(false);
+      } else {
+        setFormValid(true);
+      }
+    }
+  }, [nameError, recipeError]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,19 +74,47 @@ const AddSushi = ({ setCube }) => {
     }
   };
 
-  const handleChange = (e) => {
+  const handleRecipeChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "recipe" && value.length < 15) {
+      setRecipeError("Рецепт должен содержать более 15 символов");
+      if (!value) {
+        setRecipeError("Не может быть пустым");
+      }
+    } else {
+      setRecipeError("");
+    }
+
+    setValue({ ...formValue, [name]: value });
+  };
+
+  const handleNameChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "name" && value.length <= 3) {
+      setNameError("Название суши должно содержать более 3 символов");
+      if (!value) {
+        setNameError("Не может быть пустым");
+      }
+    } else {
+      setNameError("");
+    }
+
+    setValue({ ...formValue, [name]: value });
+  };
+
+  const handleTypeChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
+
     if (e.target.name === "type") {
       setCube(value);
     }
     setValue({ ...formValue, [name]: value });
   };
 
-  useEffect(() => {
-    setCube(type);
-  }, []);
-
+  const blurHandler = (e) => {};
   return (
     <>
       <form action="">
@@ -73,13 +125,14 @@ const AddSushi = ({ setCube }) => {
             className="select"
             value={type}
             name="type"
-            onChange={handleChange}
+            onChange={handleTypeChange}
           >
             <option value="Nigiri">Nigiri</option>
             <option value="Uramaki">Uramaki</option>
             <option value="Gunkan maki">Gunkan maki</option>
           </select>
           <label htmlFor="name">Enter sushi name: </label>
+          {<div className="error-text">{nameError}</div>}
           <input
             style={{
               marginBottom: "20px",
@@ -90,9 +143,10 @@ const AddSushi = ({ setCube }) => {
             }}
             type="text"
             name="name"
-            value={name || " "}
+            value={name || ""}
             required
-            onChange={handleChange}
+            onChange={handleNameChange}
+            onBlur={(e) => blurHandler(e)}
           />
           Enter recipe
           <textarea
@@ -100,14 +154,17 @@ const AddSushi = ({ setCube }) => {
             cols="30"
             className="recipe-textarea"
             rows="10"
-            value={recipe || " "}
-            onChange={handleChange}
+            value={recipe || ""}
+            onChange={handleRecipeChange}
+            onBlur={(e) => blurHandler(e)}
           ></textarea>
+          {<div className="error-text">{recipeError}</div>}
           <input
             type="submit"
             className="button-32"
             style={{ backgroundColor: "rgb(25, 189, 25)" }}
             value={!editMode ? "Add" : "Edit"}
+            disabled={!formValid}
             onClick={handleSubmit}
           />
           <Link to={"/"}>

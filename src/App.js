@@ -6,7 +6,6 @@ import AddSushi from "./pages/AddSushi";
 import Preloader from "./pages/Preloader";
 import AboutSushi from "./pages/AboutSushi";
 import Test from "./components/SushiInfo";
-import Search from "./pages/Search";
 
 function App() {
   const [cube, setCube] = useState("green");

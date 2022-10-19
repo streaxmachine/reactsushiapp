@@ -3,7 +3,7 @@ import { useProgress } from "@react-three/drei";
 import { useEffect } from "react";
 
 const Preloader = () => {
-  const { active, progress } = useProgress();
+  const { active } = useProgress();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

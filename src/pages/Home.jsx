@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { deleteSushiStart, loadSushiStart } from "../store/actions";
+import { loadSushiStart } from "../store/actions";
 import SushiItem from "../components/SushiItem";
 import SushiList from "../components/SushiList";
 import { Link, useSearchParams } from "react-router-dom";
